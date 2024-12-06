@@ -11,11 +11,9 @@ require_once '../models/Album.php';
 
 $response = ['status' => 'success'];
 
-// 获取请求方法
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'GET') {
-    // 获取请求路径
     $path_info = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
     $request = $path_info ? explode('/', trim($path_info,'/')) : [];
     
@@ -35,7 +33,6 @@ if ($method === 'GET') {
             break;
             
         default:
-            // 同时返回所有选项数据
             $genre = new Genre();
             $album = new Album();
             $response['data'] = [
@@ -48,11 +45,10 @@ if ($method === 'GET') {
     http_response_code(405);
     $response = [
         'status' => 'error',
-        'message' => '不支持的请求方法'
+        'message' => 'error'
     ];
 }
 
-// 输出响应
 echo json_encode($response);
 ob_end_flush();
 ?> 

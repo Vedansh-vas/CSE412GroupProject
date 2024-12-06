@@ -163,6 +163,17 @@ ul li button:hover {
   transform: scale(1.1);
 }
 
+/*add animation to the welcome page */
+.gif {
+  display: block;
+  margin: 20px auto;
+  max-width: 100%; /* Ensures responsiveness */
+  height: auto; /* Maintain aspect ratio */
+  border-radius: 8px; /* Optional: Rounded corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); /* Optional: Add a shadow */
+}
+
+
 /* Modal styling */
 .modal {
   position: fixed;

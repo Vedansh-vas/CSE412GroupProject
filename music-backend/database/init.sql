@@ -1,4 +1,3 @@
--- -- 创建数据库
 DROP DATABASE IF EXISTS music_management;
 CREATE DATABASE music_management
 DEFAULT CHARACTER SET utf8mb4 
@@ -6,7 +5,6 @@ DEFAULT COLLATE utf8mb4_general_ci;
 
 USE music_management;
 
--- 创建所有表
 DROP TABLE IF EXISTS Playlist;
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS Song;
@@ -54,7 +52,9 @@ CREATE TABLE Playlist (
     Description TEXT,
     UserID INT NOT NULL,
     SongID INT,
-    FOREIGN KEY (SongID) REFERENCES Song(SongID),
+    FOREIGN KEY (SongID) REFERENCES Song(SongID) ON DELETE CASCADE,
     FOREIGN KEY (UserID) REFERENCES User(UserID)
 );
+
+
 

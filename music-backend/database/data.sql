@@ -1,4 +1,5 @@
 USE music_management;
+
 INSERT INTO Genre (GenreID, GenreName) VALUES
 (1, 'Pop'),
 (2, 'Rock'),

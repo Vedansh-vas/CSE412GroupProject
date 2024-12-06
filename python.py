@@ -53,7 +53,7 @@ def get_albums():
         cursor.close()
         conn.close()
 
-# API
+# API Endpoint: Add a new song
 @app.route('/add_song', methods=['POST'])
 def add_song():
     data = request.json
@@ -90,6 +90,34 @@ def add_song():
         song_id = cursor.fetchone()[0]
         conn.commit()
         return jsonify({"message": "Song added successfully", "SongID": song_id}), 201
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
+    finally:
+        cursor.close()
+        conn.close()
+
+# API Endpoint: Update an existing song
+@app.route('/update_song/<int:song_id>', methods=['PUT'])
+def update_song(song_id):
+    data = request.json
+    conn = get_db_connection()
+    if conn is None:
+        return jsonify({"error": "Database connection failed"}), 500
+    cursor = conn.cursor()
+    try:
+        cursor.execute("""
+            UPDATE Song
+            SET Title = %s, Artist = %s, GenreID = (
+                SELECT GenreID FROM Genre WHERE GenreName = %s
+            ), AlbumID = (
+                SELECT AlbumID FROM Album WHERE AlbumName = %s
+            ), Duration = %s
+            WHERE SongID = %s
+            """,
+            (data['title'], data['artist'], data['genre'], data['album'], data['duration'], song_id)
+        )
+        conn.commit()
+        return jsonify({"message": "Song updated successfully"}), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 400
     finally:

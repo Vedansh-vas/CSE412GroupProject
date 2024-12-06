@@ -84,14 +84,85 @@ async function renderSongs() {
         songs.forEach((song) => {
             const li = document.createElement("li");
             li.textContent = `${song.Title} by ${song.Artist} (${song.Genre}, ${song.Album})`;
+
+            // Add Edit button
+            const editButton = document.createElement("button");
+            editButton.textContent = "Edit";
+            editButton.onclick = () => showEditModal(song);
+
+            // Add Delete button
             const deleteButton = document.createElement("button");
             deleteButton.textContent = "Delete";
             deleteButton.onclick = () => deleteSong(song.SongID);
+
+            li.prepend(editButton); // Add Edit button first
             li.appendChild(deleteButton);
             songList.appendChild(li);
         });
     } catch (error) {
         alert("Failed to load songs.");
+    }
+}
+
+function showEditModal(song) {
+    const modal = document.createElement("div");
+    modal.className = "modal";
+    modal.innerHTML = `
+        <div>
+            <h3>Edit Song</h3>
+            <form id="edit-song-form">
+                <label for="edit-title">Title:</label>
+                <input id="edit-title" type="text" value="${song.Title}" required>
+
+                <label for="edit-artist">Artist:</label>
+                <input id="edit-artist" type="text" value="${song.Artist}" required>
+
+                <label for="edit-genre">Genre:</label>
+                <input id="edit-genre" type="text" value="${song.Genre}" required>
+
+                <label for="edit-album">Album:</label>
+                <input id="edit-album" type="text" value="${song.Album || ''}">
+
+                <label for="edit-duration">Duration:</label>
+                <input id="edit-duration" type="number" value="${song.Duration}" required>
+
+                <button type="submit">Save Changes</button>
+                <button type="button" id="cancel-edit">Cancel</button>
+            </form>
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    document.getElementById("edit-song-form").onsubmit = (e) => updateSong(e, song.SongID);
+    document.getElementById("cancel-edit").onclick = () => modal.remove();
+}
+
+async function updateSong(event, songId) {
+    event.preventDefault();
+    const updatedData = {
+        title: document.getElementById("edit-title").value,
+        artist: document.getElementById("edit-artist").value,
+        genre: document.getElementById("edit-genre").value,
+        album: document.getElementById("edit-album").value,
+        duration: document.getElementById("edit-duration").value,
+    };
+
+    try {
+        const response = await fetch(`${BASE_URL}/update_song/${songId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedData),
+        });
+
+        if (response.ok) {
+            alert("Song updated successfully!");
+            renderSongs();
+            document.querySelector(".modal").remove();
+        } else {
+            alert("Failed to update song.");
+        }
+    } catch (error) {
+        alert("Error connecting to the server.");
     }
 }
 

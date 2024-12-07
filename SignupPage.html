@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Music Library</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    input {
+      background-color: rgb(255, 255, 255);
+      color: black;
+      border: 1px solid #000000;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 1rem;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    input::placeholder {
+      color: gray;
+    }
+    .signup-text {
+      text-align: center;
+      font-size: 0.9rem;
+      color: black;
+      margin-top: 10px;
+    }
+    .signup-text a {
+      color: #000000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .signup-text a:hover {
+      text-decoration: underline;
+
+    }
+  </style>
+</head>
+<body>
+  <h1>Login to Music Library</h1>
+  <img src="./assets/music anime.gif" alt="Music Animation" class="gif" style="max-width: 200px; height: auto; display: block; margin: 0px auto; border-radius: 8px;">
+  <section>
+    <form id="login-form" action="welcome.html" method="GET">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" placeholder="Enter your username" required>
+     
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+      <button type="submit"> <a href="welcome.html">Sign up</a> </button>
+    </form>
+  </section>
+  <footer>
+    &copy; 2024 Music Library. All Rights Reserved.
+  </footer>
+</body>
+</html>

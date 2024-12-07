@@ -98,7 +98,7 @@ form {
 
 form label {
   font-size: 1.1rem;
-  color: #fff;
+  color: #000000;
   margin: 15px 0 5px;
   align-self: flex-start;
 }
@@ -110,7 +110,7 @@ form input {
   border: none;
   border-radius: 25px;
   background: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  color: #ffffff;
   font-size: 1rem;
   transition: all 0.3s ease;
 }
